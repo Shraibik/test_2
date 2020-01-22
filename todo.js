@@ -4,6 +4,7 @@ function onPageLoaded() {
     let ul = document.querySelector("ul.todo-list");
     let trash = document.querySelectorAll(".todo-trash");
     let tasks =  Array.from(document.querySelectorAll("ul.todo-list li"));
+    let tasksStatus = [];
 
     function createTodo() {
         let li = document.createElement("li");
@@ -17,19 +18,35 @@ function onPageLoaded() {
         trashSpan.classList.add("todo-trash");
         trashSpan.append("Delete");
         listenDeleteTodo(trashSpan);
-        li.append(textSpan, trashSpan);
+        li.append(checkbox, textSpan, trashSpan);
         tasks.push(li);
-        tasks.forEach((li) => {ul.append(li);})
+        tasksStatus.push(false);
+        ul.append(li);
 
         input.value = "";
+        console.log(tasks);
+        console.log(tasksStatus);
     }
 
     function listenDeleteTodo(element) {
         element.addEventListener("click", (event) => {
-            tasks.splice(tasks.indexOf(element.parentElement), 1)
-            element.parentElement.remove();
+            let index = tasks.indexOf(element.parentElement);
+            tasks.splice(index, 1);
+            tasksStatus.splice(index, 1)
+            console.log(tasks);
+            console.log(tasksStatus);
+            $(ul).empty();
+            tasks.forEach((elem) => {ul.append(elem)});
         });
     }
+
+    tasks.forEach((elem) => {
+        let checkboxStatus = false;
+        if (elem.querySelector('input[type="checkbox"]').checked) {
+            checkboxStatus = true;
+        }
+        tasksStatus.push(checkboxStatus);
+    });
 
     input.addEventListener("keypress", (keyPressed) => {
         let keyEnter = 13;
