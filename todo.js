@@ -4,7 +4,9 @@ function onPageLoaded() {
     let ul = document.querySelector("ul.todo-list");
     let tasks =  Array.from(document.querySelectorAll("ul.todo-list li"));
     let tasksStatus = [];
-
+    let checkAllButton = document.querySelector(".check-all-btn");
+    let clearCompletedButton =document.querySelector(".clear-completed-btn"); 
+    
     function createTodo() {
         let li = document.createElement("li");
         let checkbox = document.createElement("input");
@@ -24,27 +26,23 @@ function onPageLoaded() {
         ul.append(li);
 
         input.value = "";
-        console.log(tasks);
-        console.log(tasksStatus);
     }
 
     function listenDeleteTodo(element) {
         element.addEventListener("click", () => {
             let index = tasks.indexOf(element.parentElement);
             tasks.splice(index, 1);
-            tasksStatus.splice(index, 1)
-            console.log(tasks);
-            console.log(tasksStatus);
+            tasksStatus.splice(index, 1);
             $(ul).empty();
             tasks.forEach((elem) => {ul.append(elem)});
         });
     }
 
     function listenCheckTodo(element) {
-        element.addEventListener("change", () => {
+        element.addEventListener("click", () => {
+            this.checked;
             let index = tasks.indexOf(element.parentElement);
             tasksStatus[index] = !tasksStatus[index];
-            console.log(tasksStatus);
         });
     }
 
@@ -61,6 +59,30 @@ function onPageLoaded() {
         if ((keyPressed.which == keyEnter) && (input.value !== "")) {
             createTodo();
         }
+    });
+
+    checkAllButton.addEventListener("click", () => {
+        let checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+        checkboxes.forEach((elem) => {
+            $(elem).prop('checked', true);;
+        });
+        tasksStatus = tasksStatus.map(() => true);
+    });
+
+    clearCompletedButton.addEventListener("click", () => {
+        let indexes = [];
+
+        tasksStatus.forEach((elem, index) => {
+            if (elem) {indexes.push(index)}
+        });
+        tasks = tasks.filter((elem, index) => {
+            return indexes.indexOf(index) == -1;
+        });
+        tasksStatus = tasksStatus.filter((elem, index) => {
+            return indexes.indexOf(index) == -1;
+        });
+        $(ul).empty();
+        tasks.forEach((elem) => {ul.append(elem)});
     });
 
     

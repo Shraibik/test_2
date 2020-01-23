@@ -4,7 +4,9 @@
     <!-- Кодировка веб-страницы -->
     <meta charset="utf-8">
 
-   <link rel="stylesheet" href="style.css">
+    <!-- Подключаем Bootstrap CSS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
@@ -14,12 +16,18 @@
             <h1>my todos<i id="pencil" class="fas fa-pencil-alt"></i></h1>
             <input type="text" placeholder="Add task">
             <ul class="todo-list"></ul>
+            <div id="buttons">
+                <button class="btn check-all-btn">Check all</button>
+            </div>
         </div>
     </div>
 
     <!-- Подключаем jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
+    <!-- Подключаем Bootstrap JS -->
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" ></script> -->
+
     <script src="todo.js"></script>
 </body>
 </html>
