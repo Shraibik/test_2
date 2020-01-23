@@ -2,7 +2,6 @@
 function onPageLoaded() {
     let input = document.querySelector("input[type='text']");
     let ul = document.querySelector("ul.todo-list");
-    let trash = document.querySelectorAll(".todo-trash");
     let tasks =  Array.from(document.querySelectorAll("ul.todo-list li"));
     let tasksStatus = [];
 
@@ -18,6 +17,7 @@ function onPageLoaded() {
         trashSpan.classList.add("todo-trash");
         trashSpan.append("Delete");
         listenDeleteTodo(trashSpan);
+        listenCheckTodo(checkbox);
         li.append(checkbox, textSpan, trashSpan);
         tasks.push(li);
         tasksStatus.push(false);
@@ -29,7 +29,7 @@ function onPageLoaded() {
     }
 
     function listenDeleteTodo(element) {
-        element.addEventListener("click", (event) => {
+        element.addEventListener("click", () => {
             let index = tasks.indexOf(element.parentElement);
             tasks.splice(index, 1);
             tasksStatus.splice(index, 1)
@@ -37,6 +37,14 @@ function onPageLoaded() {
             console.log(tasksStatus);
             $(ul).empty();
             tasks.forEach((elem) => {ul.append(elem)});
+        });
+    }
+
+    function listenCheckTodo(element) {
+        element.addEventListener("change", () => {
+            let index = tasks.indexOf(element.parentElement);
+            tasksStatus[index] = !tasksStatus[index];
+            console.log(tasksStatus);
         });
     }
 
